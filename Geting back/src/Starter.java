@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Starter {
 
 	public static void main(String[] args) {
 
-		ArrayList<String> players = new ArrayList<String>();
+		ArrayList<Player> players = new ArrayList<Player>();
 		Deck deck = new Deck();
 				
 		
@@ -18,14 +19,14 @@ public class Starter {
 		
 		System.out.println(deck.getNumberOfCardsInDeck());
 		
-		players.add("Igrac 1");
-		players.add("Igrac 2");
-		players.add("Igrac 3");
+		players.add(new Player("Igrac 1"));
+		players.add(new Player("Igrac 2"));
+		players.add(new Player("Igrac 3"));
 		
-		Game game = new Game();
-		game.addDeck(deck);
+		Game game = new Game(players);
+		game.setDeck(deck);
 		
-		game.startGame(players);
+		game.startGame();
 		
 		
 

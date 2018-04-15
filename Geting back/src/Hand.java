@@ -11,23 +11,32 @@ public class Hand {
 
 	}
 
-	public void addCardInHand(Card card) {
-		if (cardsInHand.size() >= maxNumberOfCards) {
+	public void addCardInHand(Card card) 
+	{
+		if (cardsInHand.size() >= maxNumberOfCards) 
+		{
 			System.out.println("Can not add card, maximum number of cards in hand.");
-		} else {
+		} 
+		else 
+		{
 			cardsInHand.add(card);
 		}
 	}
 
-	public void removeCardFromHand(Card card) {
-		if (cardsInHand.contains(card)) {
+	public void removeCardFromHand(Card card) 
+	{
+		if (cardsInHand.contains(card)) 
+		{
 			cardsInHand.remove(card);
-		} else {
+		} 
+		else 
+		{
 			System.out.println("Card not ih hand");
 		}
 	}
 
-	public void showAllCardsInHand() {
+	public void showAllCardsInHand() 
+	{
 		if (cardsInHand.isEmpty()) {
 			System.out.println("No cards in hand.");
 		} else {
@@ -37,8 +46,14 @@ public class Hand {
 		}
 	}
 
-	public List<Card> getAllCardsInHand() {
+	public List<Card> getAllCardsInHand() 
+	{
 		return Collections.unmodifiableList(cardsInHand);
+	}
+	
+	public int getNumberOfCardsInHand()
+	{
+		return cardsInHand.size();
 	}
 
 }

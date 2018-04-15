@@ -1,3 +1,5 @@
+import java.util.Collections;
+import java.util.List;
 
 public class Player {
 	
@@ -18,6 +20,16 @@ public class Player {
 	public void addCard(Card card)
 	{
 		hand.addCardInHand(card);
+	}
+	
+	public List<Card> getAllCardsInHand()
+	{
+		return Collections.unmodifiableList(hand.getAllCardsInHand());
+	}
+	
+	public int getNumberOfCardsInHand()
+	{
+		return hand.getNumberOfCardsInHand();
 	}
 	
 }

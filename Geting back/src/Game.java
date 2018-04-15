@@ -1,86 +1,85 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private Deck deck = new Deck();
-	private int roundNumber = 0;
+	private Deck deck;
+	private int roundCounter = 0;
 	
-	
-	
-	public void startGame(ArrayList<String> players)
+	public Game()
 	{
-		createPlayers(players);
-		dealCardsAtStart();
-//		determinWhoGoesFirst();
-//		playRound();
-//		determinWinnerOfRound();
-//		putCardsFromBoardToGraveyard();
-//		determinIfGameIsOver();
 		
-	} 
-	
-	private void createPlayers(ArrayList<String> playersToAdd)
-	{
-		for (String playerName : playersToAdd)
-		{
-			players.add(new Player(playerName));
-			System.out.println("igrac " + playerName + " dodan");
-		}
 	}
 	
-	private void dealCardsAtStart()
+	public Game(List<Player> players)
 	{
-		int cardsToRemove = deck.getNumberOfCardsInDeck() % getNumberOfPlayers();
-		deck.discardTopCards(cardsToRemove);
+		this.players = (ArrayList<Player>) players;
+	}
+	
+	
+	
+	public void addPlayer(Player player)
+	{
+		players.add(player);
+	}
+	
+	public void setDeck(Deck deck)
+	{
+		this.deck = deck;
+	}
+	
+	public void startGame()
+	{
+		dealCardsToPlayers();
+		play();
+	}
+	
+	private void dealCardsToPlayers(){
 		
+		deck.discardTopCards(deck.getNumberOfCardsInDeck() % players.size());
 		deck.shuffle();
+		int numberOfCardsForEachPlayer = deck.getNumberOfCardsInDeck() / players.size();
 		
-		int cardsToEachPlayer = deck.getNumberOfCardsInDeck() / players.size();
-		
-		System.out.println(deck.getNumberOfCardsInDeck());
 		
 		for (Player player : players)
 		{
-			for (int i=1; i < cardsToEachPlayer; i++)
+			for (int i = 1; i < numberOfCardsForEachPlayer; i++)
 			{
 				player.addCard(deck.drawCard());
 				deck.discardTopCard();
 			}
+			System.out.println("Player " + player.name + " has " + player.getNumberOfCardsInHand() + " cards in hand.");
 		}
-		
-		System.out.println("svaki igrac ima " + cardsToEachPlayer + " karata u ruci.");
-		
 	}
 	
-	private int getNumberOfPlayers()
+	private void play()
 	{
-		return players.size();
-	}
-	
-	private int selectRandomPlayer()
-	{
-		return ThreadLocalRandom.current().nextInt(0, players.size() +1);
-	}
-	
-	private void playRoud(){
-		if (roundNumber != 0)
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		
+		if (roundCounter != 0)
 		{
 			
-		} else {
+		}
+		else
+		{
+			int firstPlayer = selectRandomPlayer();
+			order.add(firstPlayer);
+			
+			for (int i = firstPlayer+1; )
 			
 		}
 	}
 	
-	
-	
-	
-	
-	public void addDeck(Deck deck)
-	{
-		this.deck = deck;
+	private int selectRandomPlayer(){
+		return ThreadLocalRandom.current().nextInt(0, players.size() + 1);
 	}
+	
+	
+	
+	
+	
 	
 }
