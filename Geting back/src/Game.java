@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +10,8 @@ public class Game {
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Deck deck;
 	private int roundCounter = 0;
+	private Board board = new Board();
+	
 	
 	public Game()
 	{
@@ -65,16 +69,44 @@ public class Game {
 		}
 		else
 		{
-			int firstPlayer = selectRandomPlayer();
-			order.add(firstPlayer);
-			
-			for (int i = firstPlayer+1; )
-			
+			firstRound();
 		}
 	}
 	
-	private int selectRandomPlayer(){
+	private int selectRandomPlayer()
+	{
 		return ThreadLocalRandom.current().nextInt(0, players.size() + 1);
+	}
+	
+	private void firstRound()
+	{
+		int firstPlayer = selectRandomPlayer();
+		
+		if(firstPlayer != 0)
+		{
+			
+		}
+		else
+		{
+			for(Player player : players)
+			{
+				board.addCard(getCardFromPlayer(player));
+			}
+		}
+		
+	}
+	
+	private Card getCardFromPlayer(Player player)
+	{
+		System.out.println(player.name + " has following cards ih hand:");
+		System.out.println(player.getAllCardsInHand());
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Chose card: ");
+		String s  = br.readLine();
+		
+		
+		
+		return
 	}
 	
 	
