@@ -3,6 +3,11 @@ import java.util.List;
 
 public class Player {
 	
+	@Override
+	public String toString() {
+		return "Player: "+ name;
+	}
+
 	Hand hand;
 	String name;
 	
@@ -31,5 +36,27 @@ public class Player {
 	{
 		return hand.getNumberOfCardsInHand();
 	}
+	
+	public boolean isEmpty()
+	{
+		if(hand.isEmpty())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public Card playCard(String card)
+	{
+		int cardToReturn = Integer.parseInt(card);
+		Card returnCard = hand.getCard(cardToReturn);
+		hand.removeCardFromHand(returnCard);
+		return returnCard;
+		
+	}
+	
 	
 }

@@ -55,5 +55,35 @@ public class Hand {
 	{
 		return cardsInHand.size();
 	}
+	
+	public boolean isEmpty()
+	{
+		if(cardsInHand.isEmpty())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public Card getCard(String card)
+	{
+		if (cardsInHand.contains(card))
+		{
+			return cardsInHand.get(cardsInHand.indexOf(card));
+		}
+		else
+		{
+			System.out.println("Card not in hand!");
+			return null;
+		}
+	}
+	
+	public Card getCard(int cardIndex)
+	{
+		return cardsInHand.get(cardIndex - 1);
+	}
 
 }

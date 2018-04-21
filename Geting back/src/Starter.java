@@ -19,9 +19,9 @@ public class Starter {
 		
 		System.out.println(deck.getNumberOfCardsInDeck());
 		
-		players.add(new Player("Igrac 1"));
-		players.add(new Player("Igrac 2"));
-		players.add(new Player("Igrac 3"));
+		players.add(new Player("Ivan"));
+		players.add(new Player("Petar"));
+		players.add(new Player("Marko"));
 		
 		Game game = new Game(players);
 		game.setDeck(deck);

@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Game {
 	private Deck deck;
 	private int roundCounter = 0;
 	private Board board = new Board();
+	private ArrayList<Player> playingOrder = new ArrayList<Player>();
 	
 	
 	public Game()
@@ -22,8 +24,6 @@ public class Game {
 	{
 		this.players = (ArrayList<Player>) players;
 	}
-	
-	
 	
 	public void addPlayer(Player player)
 	{
@@ -38,15 +38,18 @@ public class Game {
 	public void startGame()
 	{
 		dealCardsToPlayers();
-		play();
+		determinePlayingOrder();
+		while (!players.get(0).isEmpty())
+		{
+			playRound();
+		}
 	}
 	
-	private void dealCardsToPlayers(){
-		
+	private void dealCardsToPlayers()
+	{
 		deck.discardTopCards(deck.getNumberOfCardsInDeck() % players.size());
 		deck.shuffle();
 		int numberOfCardsForEachPlayer = deck.getNumberOfCardsInDeck() / players.size();
-		
 		
 		for (Player player : players)
 		{
@@ -59,54 +62,68 @@ public class Game {
 		}
 	}
 	
-	private void play()
+	private void playRound()
 	{
-		ArrayList<Integer> order = new ArrayList<Integer>();
-		
-		if (roundCounter != 0)
+//		ask players for cards
+		getCardsFromPlayers();
+//		determine winner
+//		give cards to the winner of the round
+//		determine playing order for the new round
+	}
+
+	private void getCardsFromPlayers() 
+	{
+		for (Player player : playingOrder)
 		{
-			
-		}
-		else
-		{
-			firstRound();
+			board.addCard(player, getCardFromPlayer(player));
 		}
 	}
+
+	private void determineWinner(){
+		
+	}
 	
+
 	private int selectRandomPlayer()
 	{
-		return ThreadLocalRandom.current().nextInt(0, players.size() + 1);
+		return ThreadLocalRandom.current().nextInt(0, players.size());
 	}
 	
-	private void firstRound()
+	private void determinePlayingOrder()
 	{
+			
 		int firstPlayer = selectRandomPlayer();
 		
-		if(firstPlayer != 0)
+		for (int i = firstPlayer; i < players.size(); i++)
 		{
-			
-		}
-		else
-		{
-			for(Player player : players)
-			{
-				board.addCard(getCardFromPlayer(player));
-			}
+			playingOrder.add(players.get(i));
 		}
 		
+		for (int i = 0; i < firstPlayer; i++)
+		{
+			playingOrder.add(players.get(i));
+		}
+		System.out.println(playingOrder);
 	}
 	
-	private Card getCardFromPlayer(Player player)
+	
+ 	private Card getCardFromPlayer(Player player)
 	{
 		System.out.println(player.name + " has following cards ih hand:");
 		System.out.println(player.getAllCardsInHand());
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Chose card: ");
-		String s  = br.readLine();
-		
-		
-		
-		return
+		try
+		{
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Chose card: ");
+			String cardNumber  = br.readLine();
+			
+			return player.playCard(cardNumber);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	

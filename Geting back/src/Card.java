@@ -1,5 +1,6 @@
+import java.util.Comparator;
 
-public class Card {
+public class Card implements Comparator<Card>{
 
 	Color color;
 	int number;
@@ -45,6 +46,12 @@ public class Card {
 	@Override
 	public String toString() {
 		return color + " " + number;
+	}
+
+	@Override
+	public int compare(Card a, Card b) 
+	{
+		return a.number - b.number;
 	}
 	
 	
